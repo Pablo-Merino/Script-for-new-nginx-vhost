@@ -1,0 +1,18 @@
+server {
+        listen 8080;
+        server_name www.SERVER SERVER;
+
+    	access_log /srv/www/SERVER/logs/access.log;
+        error_log /srv/www/SERVER/logs/error.log;
+
+        root /srv/www/SERVER/application/public;
+        passenger_enabled on;
+
+		location ~ \.php$ {
+            root           html;
+            fastcgi_pass   127.0.0.1:9000;
+            fastcgi_index  index.php;
+    	    fastcgi_param  SCRIPT_FILENAME  /srv/www/SERVER/public/$fastcgi_script_name;
+            include        fastcgi_params;
+        }
+}
